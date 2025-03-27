@@ -1,39 +1,43 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+import { Tabs } from "expo-router";
+import { FontAwesome } from "@expo/vector-icons";
+import { TransactionProvider } from "@/context/TransactionContext";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+    return (
+        <TransactionProvider>
+            <Tabs
+                screenOptions={{
+                    tabBarActiveTintColor: "blue",
+                }}
+            >
+                <Tabs.Screen
+                    name="index"
+                    options={{
+                        title: "Home",
+                        tabBarIcon: ({ color }) => (
+                            <FontAwesome size={28} name="home" color={color} />
+                        ),
+                    }}
+                />
+                <Tabs.Screen
+                    name="TransactionScreen"
+                    options={{
+                        title: "Transactions",
+                        tabBarIcon: ({ color }) => (
+                            <FontAwesome size={28} name="list" color={color} />
+                        ),
+                    }}
+                />
+                <Tabs.Screen
+                    name="Settings"
+                    options={{
+                        title: "Settings",
+                        tabBarIcon: ({ color }) => (
+                            <FontAwesome size={28} name="cog" color={color} />
+                        ),
+                    }}
+                />
+            </Tabs>
+        </TransactionProvider>
+    );
 }
