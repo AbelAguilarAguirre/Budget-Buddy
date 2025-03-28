@@ -34,6 +34,7 @@ export default function App() {
 
     const components = [
         <Header key="header" balance={getBalance()} />,
+        <GoalProgress key="goal" />,
         <TransactionForm
             key="form"
             amount={amount}
@@ -45,7 +46,6 @@ export default function App() {
         <TotalIncome key="income" />,
         <TotalExpenses key="expenses" />,
         <ExpenseSummary key="summary" />,
-        <GoalProgress key="goal" />,
     ];
     return (
         <FlatList

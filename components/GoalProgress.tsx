@@ -54,7 +54,7 @@ export default function GoalProgress() {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
+        padding: 10,
         marginVertical: 10,
         backgroundColor: "#f0f8ff",
         borderRadius: 5,
